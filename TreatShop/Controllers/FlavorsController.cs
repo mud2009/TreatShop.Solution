@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using TreatShop.Models;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace TreatShop.Controllers
 {
@@ -52,6 +53,20 @@ namespace TreatShop.Controllers
     public ActionResult Edit(Flavor flavor)
     {
       _db.Entry(flavor).State = EntityState.Modified;
+      _db.SaveChanges();
+      return RedirectToAction("Index");
+    }
+    public ActionResult Delete(int id)
+    {
+      Flavor thisFlavor = _db.Flavors.FirstOrDefault(flavor => flavor.FlavorId == id);
+      ViewBag.PageTitle = $"Delete {thisFlavor.Name}";
+      return View(thisFlavor);
+    }
+    [HttpPost, ActionName("Delete")]
+    public ActionResult DeleteConfirmed(int id)
+    {
+      var thisFlavor = _db.Flavors.FirstOrDefault(flavor => flavor.FlavorId == id);
+      _db.Flavors.Remove(thisFlavor);
       _db.SaveChanges();
       return RedirectToAction("Index");
     }
