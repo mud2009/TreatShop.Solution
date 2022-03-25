@@ -55,5 +55,20 @@ namespace TreatShop.Controllers
       _db.SaveChanges();
       return RedirectToAction("Index");
     }
+    public ActionResult Delete(int id)
+    {
+      Treat thisTreat = _db.Treats.FirstOrDefault(treat => treat.TreatId == id);
+      ViewBag.PageTitle = $"Delete {thisTreat.Name}";
+      return View(thisTreat);
+    }
+    [HttpPost, ActionName("Delete")]
+    public ActionResult DeleteConfirmed(int id)
+    {
+      var thisTreat = _db.Treats.FirstOrDefault(treat => treat.TreatId == id);
+      _db.Treats.Remove(thisTreat);
+      _db.SaveChanges();
+      return RedirectToAction("Index");
+    }
+
   }
 }
