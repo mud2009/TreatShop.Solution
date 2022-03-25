@@ -20,5 +20,19 @@ namespace TreatShop.Controllers
       ViewBag.PageTitle = "Flavors";
       return View(model);
     }
+    public ActionResult Create()
+    {
+      return View();
+    }
+
+    [HttpPost]
+    public ActionResult Create(Flavor flavor)
+    {
+      _db.Flavors.Add(flavor);
+      _db.SaveChanges();
+      ViewBag.PageTitle = "Add Flavor";
+      return RedirectToAction("Index");
+    }
+
   }
 }
