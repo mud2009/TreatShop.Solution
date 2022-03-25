@@ -1,0 +1,33 @@
+@{
+  Layout = "_Layout";
+}
+
+<h2>Treat Shop Tracker</h2>
+
+@using TreatShop.Models
+<div class="row">
+  <div class="col-6">
+    <h3>Treats</h3>
+    @if (ViewBag.AllTreats.Count == 0)
+    {
+      <h5>No treats have been added yet</h5>
+    }
+      @foreach (Treat treat in ViewBag.AllTreats)
+      {
+        <p>@Html.ActionLink($"{treat.Name}", "Details", "Treats", new { id = treat.TreatId })</p>
+      }
+    <p>@Html.ActionLink("Treats page", "Index", "Treats")</p> 
+  </div>
+  <div class="col-6">
+    <h3>Flavors</h3>
+    @if (ViewBag.AllFlavors.Count == 0)
+    {
+      <h5>No flavors have been added yet</h5>
+    }
+      @foreach (Flavor flavor in ViewBag.AllFlavors)
+      {
+        <p>@Html.ActionLink($"{flavor.Name}", "Details", "Flavors", new { id = flavor.FlavorId })</p>
+      }
+    <p>@Html.ActionLink("Flavors page", "Index", "Flavors")</p>
+  </div>
+</div>
