@@ -1,0 +1,21 @@
+@{
+  Layout = "_Layout";
+}
+
+@using TreatShop.ViewModels
+
+@model LoginViewModel
+
+<h2>Log in with your account</h2>
+@using (Html.BeginForm())
+{
+  <div class="form-group">
+    @Html.TextBoxFor(m => m.Email, new {@class= "form-control", placeholder = "Email", required = "required"})
+  </div>
+  <div class="form-group">
+    @Html.PasswordFor(m => m.Password, new {@class= "form-control", placeholder = "Password", required = "required"})
+  </div>
+  <div class="form-group">
+    <input type="submit" value="Log in" class="btn btn-primary" />
+  </div>
+}
