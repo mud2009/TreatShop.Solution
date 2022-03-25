@@ -18,7 +18,14 @@
           <a class="nav-item nav-link" href="/Flavors">Flavors</a>
         </div>
         <div class="navbar-nav">
-          <a class="nav-item nav-link" href="/Account">Account</a>
+          @if (User.Identity.IsAuthenticated)
+          {
+            <a class="nav-item nav-link" href="/Account">@User.Identity.Name</a>
+          }
+          else
+          {
+            <a class="nav-item nav-link" href="/Account">Account</a>
+          }
         </div>
       </div>
     </nav>
