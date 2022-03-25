@@ -17,6 +17,7 @@ namespace TreatShop.Controllers
     public ActionResult Index()
     {
       List<Treat> model = _db.Treats.ToList();
+      ViewBag.PageTitle = "Treats";
       return View(model);
     }
     public ActionResult Create()
@@ -29,7 +30,17 @@ namespace TreatShop.Controllers
     {
       _db.Treats.Add(treat);
       _db.SaveChanges();
+      ViewBag.PageTitle = "Add Treat";
       return RedirectToAction("Index");
+    }
+    public ActionResult Details(int id)
+    {
+      var thisTreat = _db.Treats
+          .Include(treat => treat.JoinEntities)
+          .ThenInclude(join => join.Flavor)
+          .FirstOrDefault(treat => treat.TreatId == id);
+      ViewBag.PageTitle = $"{thisTreat.Name}'s Details";
+      return View(thisTreat);
     }
   }
 }
