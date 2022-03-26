@@ -4,9 +4,14 @@ using TreatShop.Models;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using System.Threading.Tasks;
+using System.Security.Claims;
 
 namespace TreatShop.Controllers
 {
+  [Authorize]
   public class TreatsController : Controller
   {
     private readonly TreatShopContext _db;
@@ -15,6 +20,7 @@ namespace TreatShop.Controllers
     {
       _db = db;
     }
+    [AllowAnonymous]
     public ActionResult Index()
     {
       List<Treat> model = _db.Treats.ToList();
@@ -34,6 +40,7 @@ namespace TreatShop.Controllers
       ViewBag.PageTitle = "Add Treat";
       return RedirectToAction("Index");
     }
+    [AllowAnonymous]
     public ActionResult Details(int id)
     {
       var thisTreat = _db.Treats
