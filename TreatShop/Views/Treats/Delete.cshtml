@@ -4,13 +4,13 @@
 
 @model TreatShop.Models.Treat
 
-<h3>Are you sure you want to delete?</h3>
-
-@Html.DisplayNameFor(model => model.Name): @Html.DisplayFor(model => model.Name)
+<h3>Are you sure you want to delete @Html.DisplayFor(model => model.Name)?</h3>
 
 @using (Html.BeginForm())
 {
-  <input type="submit" value="Delete" class="btn btn-primary"/>
+  <div class="form-group">
+    <input type="submit" value="Delete" class="btn btn-primary"/>
+  </div>
 }
 
 @Html.ActionLink("Back to list", "Index")
