@@ -25,6 +25,8 @@ else
       }
   }
 }
-
-<p>@Html.ActionLink("Add a flavor", "AddFlavor", new { id = Model.TreatId }) - @Html.ActionLink("Edit treat", "Edit", new { id = Model.TreatId }) - @Html.ActionLink("Delete treat", "Delete", new { id = Model.TreatId })</p>
+@if (User.Identity.IsAuthenticated)
+{
+  <p>@Html.ActionLink("Add a flavor", "AddFlavor", new { id = Model.TreatId }) - @Html.ActionLink("Edit this treat", "Edit", new { id = Model.TreatId }) - @Html.ActionLink("Delete this treat", "Delete", new { id = Model.TreatId })</p>
+}
 <p>@Html.ActionLink("Back to list", "Index")</p>
