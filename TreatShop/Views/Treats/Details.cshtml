@@ -4,11 +4,11 @@
 
 @model TreatShop.Models.Treat
 
-<h3>Treat Details</h3>
+<h3>@Html.DisplayFor(model => model.Name)'s Details</h3>
 
 <h5>@Html.DisplayNameFor(model => model.Name): @Html.DisplayFor(model => model.Name)</h5>
 
-<h4>Treat's Flavors</h4>
+<h4>@Html.DisplayFor(model => model.Name)'s Flavors</h4>
 
 @if(@Model.JoinEntities.Count == 0)
 {
@@ -18,12 +18,11 @@ else
 {
   @foreach (var join in Model.JoinEntities)
   {
-    <p>@join.Flavor.Name</p>
       @using (Html.BeginForm("DeleteFlavor", "Treats"))
       {
         @Html.Hidden("joinId", @join.TreatFlavorId)
         <div class="form-group">
-          <input type="submit" value="Remove @join.Flavor.Name from @Html.DisplayFor(model => model.Name)'s flavors"class="btn btn-primary"/>
+          <h5>@join.Flavor.Name - <input type="submit" value="Remove"class="btn btn-danger btn-sm" style="font-size:.6em; padding:.25em"/></h5>
         </div>
       }
   }
