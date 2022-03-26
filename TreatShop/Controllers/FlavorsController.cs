@@ -29,6 +29,7 @@ namespace TreatShop.Controllers
     }
     public ActionResult Create()
     {
+      ViewBag.PageTitle = "Add Flavor";
       return View();
     }
 
@@ -37,7 +38,6 @@ namespace TreatShop.Controllers
     {
       _db.Flavors.Add(flavor);
       _db.SaveChanges();
-      ViewBag.PageTitle = "Add Flavor";
       return RedirectToAction("Index");
     }
     [AllowAnonymous]
