@@ -4,9 +4,14 @@ using TreatShop.Models;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using System.Threading.Tasks;
+using System.Security.Claims;
 
 namespace TreatShop.Controllers
 {
+  [Authorize]
   public class FlavorsController : Controller
   {
     private readonly TreatShopContext _db;
@@ -15,6 +20,7 @@ namespace TreatShop.Controllers
     {
       _db = db;
     }
+    [AllowAnonymous]
     public ActionResult Index()
     {
       List<Flavor> model = _db.Flavors.ToList();
@@ -34,12 +40,13 @@ namespace TreatShop.Controllers
       ViewBag.PageTitle = "Add Flavor";
       return RedirectToAction("Index");
     }
+    [AllowAnonymous]
     public ActionResult Details(int id)
     {
       var thisFlavor = _db.Flavors
-          .Include(flavor => flavor.JoinEntities)
-          .ThenInclude(join => join.Treat)
-          .FirstOrDefault(flavor => flavor.FlavorId == id);
+        .Include(flavor => flavor.JoinEntities)
+        .ThenInclude(join => join.Treat)
+        .FirstOrDefault(flavor => flavor.FlavorId == id);
       ViewBag.PageTitle = $"{thisFlavor.Name}'s Details";
       return View(thisFlavor);
     }
@@ -95,6 +102,5 @@ namespace TreatShop.Controllers
         _db.SaveChanges();
       return RedirectToAction("Index");
     }
-
   }
 }
